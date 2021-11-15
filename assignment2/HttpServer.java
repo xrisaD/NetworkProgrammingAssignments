@@ -89,9 +89,6 @@ public class HttpServer{
 			sessionCounter++;
 		}
 
-		if (method.equalsIgnoreCase("get") && Objects.equals(requestedDocument, "/guess.html")) {
-			session.increaseTries();
-		}
 		System.out.println("Request processed.");
 		return new Request(method, requestedDocument, variables, session);
 	}
@@ -101,7 +98,6 @@ public class HttpServer{
 		PrintStream response = new PrintStream(s.getOutputStream());
 		response.println("HTTP/1.1 200 OK");
 		response.println("Server: Trash 0.1 Beta");
-		//int result = session.getGuessGame().checkGuess(guess);
 
 		if (request.getRequestedDocument().contains(".html")) {
 			response.println("Content-Type: text/html");
@@ -123,11 +119,12 @@ public class HttpServer{
 				// load params if needed
 				if (Objects.equals(request.getRequestedDocument(), "/guess.html")) {
 					Hashtable<String, String> params = new Hashtable<>();
-					if (
-							request.getVariables().get("value")!=null) {
-						String guess = request.getVariables().get("value");
-						params.put("numOfGuesses", String.valueOf(request.session.getTries()));
+					Hashtable<String, String> variables = request.getVariables();
 
+					if (variables !=null && variables.get("value") != null){
+						String guess = variables.get("value");
+						params.put("numOfGuesses", String.valueOf(request.session.getTries()));
+						request.session.increaseTries();
 						int num = request.session.getGuessGame().checkGuess(Integer.parseInt(guess));
 						if (num == 0) {
 							// serve success
@@ -140,8 +137,12 @@ public class HttpServer{
 						}
 						((HTMLFileDocumentWithParams) htmlDocument).setParameters(params);
 					} else {
-						request.requestedDocument = "/error.html";
+						// error
+						htmlDocument.name = "/error.html";
 					}
+				} else {
+					// error
+					htmlDocument.name = "/error.html";
 				}
 
 				htmlDocument.load();
