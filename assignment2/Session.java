@@ -1,8 +1,11 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Session {
     private int tries;
     private int sessionId;
     private GuessGame guessGame;
+    private List<GuessGame> games = new ArrayList<>();
 
     public Session(int sessionId) {
         this.tries = 0;
@@ -23,5 +26,11 @@ public class Session {
 
     public int getTries() {
         return tries;
+    }
+
+    public void newGame () {
+        this.games.add(this.guessGame);
+        this.guessGame = new GuessGame();
+        this.tries = 0;
     }
 }

@@ -77,7 +77,6 @@ public class HttpServer{
 					cookieFound = true;
 				} else {
 					cookieFound = false;
-					// TODO: discuss with marc
 				}
 
 			}
@@ -113,10 +112,10 @@ public class HttpServer{
 		response.println();
 
 		System.out.println(request.requestedDocument);
-		if(!"\favicon.ico".equals(request.requestedDocument)){ // Ignore any additional request to retrieve the bookmark-icon.
-
+		if(!"/favicon.ico".equals(request.requestedDocument)){ // Ignore any additional request to retrieve the bookmark-icon.
+			System.out.println("TARGET: "+request.session.getGuessGame().target);
+			HTMLDocument htmlDocument = null;
 			if (htmlDocuments.getDocuments().get(request.requestedDocument)!=null) {
-				HTMLDocument htmlDocument = htmlDocuments.getDocuments().get(request.requestedDocument);
 
 				// load params if needed
 				if (Objects.equals(request.getRequestedDocument(), "/guess.html")) {
@@ -124,29 +123,38 @@ public class HttpServer{
 
 					if (variables !=null && variables.get("value") != null){
 						String guess = variables.get("value");
+						System.out.println("GUESS"+guess);
 						Hashtable<String, String> params = new Hashtable<>();
 						request.session.increaseTries();
 						params.put("numOfGuesses", String.valueOf(request.session.getTries()));
 
 						int num = request.session.getGuessGame().checkGuess(Integer.parseInt(guess));
+						System.out.println("NUM"+num);
 						if (num == 0) {
 							// serve success
-							htmlDocument.name = "/success.html";
+							htmlDocument = htmlDocuments.getDocuments().get("/success.html");
 						} else if (num > 0) {
+							htmlDocument = htmlDocuments.getDocuments().get("/guess.html");
 							params.put("higherOrLower", "lower");
 						} else {
+							htmlDocument = htmlDocuments.getDocuments().get("/guess.html");
 							params.put("higherOrLower", "higher");
 						}
 						((HTMLFileDocumentWithParams) htmlDocument).setParameters(params);
-
 					} else {
 						// error
-						htmlDocument.name = "/error.html";
+						htmlDocument = htmlDocuments.getDocuments().get("/error.html");
 					}
+				} else {
+					htmlDocument = htmlDocuments.getDocuments().get(request.requestedDocument);
 				}
 
 				htmlDocument.load();
 
+				// start a new game
+				if (htmlDocument.name.equals("/success.html")) {
+					request.getSession().newGame();
+				}
 				// send content
 				response.println(htmlDocument.content);
 			}
