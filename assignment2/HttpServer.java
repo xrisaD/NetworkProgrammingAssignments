@@ -13,6 +13,7 @@ public class HttpServer{
 		htmlDocuments.documents.put("/index.html", new HTMLFileDocument("/index.html"));
 		htmlDocuments.documents.put("/guess.html", new HTMLFileDocumentWithParams("/guess.html"));
 		htmlDocuments.documents.put("/error.html", new HTMLFileDocument("/error.html"));
+		htmlDocuments.documents.put("/success.html", new HTMLFileDocumentWithParams("/success.html"));
 	}
 
     public static void main(String[] args) {
@@ -115,7 +116,6 @@ public class HttpServer{
 		if(!"\favicon.ico".equals(request.requestedDocument)){ // Ignore any additional request to retrieve the bookmark-icon.
 
 			if (htmlDocuments.getDocuments().get(request.requestedDocument)!=null) {
-				System.out.println("INNNN");
 				HTMLDocument htmlDocument = htmlDocuments.getDocuments().get(request.requestedDocument);
 
 				// load params if needed
@@ -131,7 +131,7 @@ public class HttpServer{
 						int num = request.session.getGuessGame().checkGuess(Integer.parseInt(guess));
 						if (num == 0) {
 							// serve success
-							// TODO: success page
+							htmlDocument.name = "/success.html";
 						} else if (num > 0) {
 							params.put("higherOrLower", "lower");
 						} else {
