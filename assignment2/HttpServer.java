@@ -111,25 +111,22 @@ public class HttpServer{
 		// empty line
 		response.println();
 
-		System.out.println(request.requestedDocument);
 		if(!"/favicon.ico".equals(request.requestedDocument)){ // Ignore any additional request to retrieve the bookmark-icon.
 			System.out.println("TARGET: "+request.session.getGuessGame().target);
 			HTMLDocument htmlDocument = null;
 			if (htmlDocuments.getDocuments().get(request.requestedDocument)!=null) {
-
 				// load params if needed
 				if (Objects.equals(request.getRequestedDocument(), "/guess.html")) {
 					Hashtable<String, String> variables = request.getVariables();
 
 					if (variables !=null && variables.get("value") != null){
 						String guess = variables.get("value");
-						System.out.println("GUESS"+guess);
 						Hashtable<String, String> params = new Hashtable<>();
 						request.session.increaseTries();
 						params.put("numOfGuesses", String.valueOf(request.session.getTries()));
 
 						int num = request.session.getGuessGame().checkGuess(Integer.parseInt(guess));
-						System.out.println("NUM"+num);
+
 						if (num == 0) {
 							// serve success
 							htmlDocument = htmlDocuments.getDocuments().get("/success.html");
