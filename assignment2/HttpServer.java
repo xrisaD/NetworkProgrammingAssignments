@@ -111,38 +111,38 @@ public class HttpServer{
 		// empty line
 		response.println();
 
+		System.out.println(request.requestedDocument);
 		if(!"\favicon.ico".equals(request.requestedDocument)){ // Ignore any additional request to retrieve the bookmark-icon.
 
 			if (htmlDocuments.getDocuments().get(request.requestedDocument)!=null) {
+				System.out.println("INNNN");
 				HTMLDocument htmlDocument = htmlDocuments.getDocuments().get(request.requestedDocument);
 
 				// load params if needed
 				if (Objects.equals(request.getRequestedDocument(), "/guess.html")) {
-					Hashtable<String, String> params = new Hashtable<>();
 					Hashtable<String, String> variables = request.getVariables();
 
 					if (variables !=null && variables.get("value") != null){
 						String guess = variables.get("value");
-						params.put("numOfGuesses", String.valueOf(request.session.getTries()));
+						Hashtable<String, String> params = new Hashtable<>();
 						request.session.increaseTries();
+						params.put("numOfGuesses", String.valueOf(request.session.getTries()));
+
 						int num = request.session.getGuessGame().checkGuess(Integer.parseInt(guess));
 						if (num == 0) {
 							// serve success
 							// TODO: success page
-						} else if (num < 0) {
-							// TODO: check higher or lower
+						} else if (num > 0) {
 							params.put("higherOrLower", "lower");
 						} else {
 							params.put("higherOrLower", "higher");
 						}
 						((HTMLFileDocumentWithParams) htmlDocument).setParameters(params);
+
 					} else {
 						// error
 						htmlDocument.name = "/error.html";
 					}
-				} else {
-					// error
-					htmlDocument.name = "/error.html";
 				}
 
 				htmlDocument.load();
