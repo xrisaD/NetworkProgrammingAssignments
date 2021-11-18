@@ -1,4 +1,4 @@
-package java.examples;
+package examples;
 
 public class User {
     

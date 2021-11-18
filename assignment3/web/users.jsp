@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="examples.*" %>
+<%@page import="java.examples.*" %>
+<%@ page import="examples.User" %>
 <!DOCTYPE html>
 
     <head>
@@ -10,19 +11,19 @@
         
         <h1>Users</h1>
         <table><tr><th>Username</th><th>Password</th></tr>
-        <%
-            // pre defined variables are request, response, out, session, application
-            User[] users = (User[])application.getAttribute("users");
-            for(User u : users){
-        %>
-    <tr>
-        <td><%= u.getUsername() %></td>
-        <td><%= u.getPassword() %></td>
-    </tr>
+            <%
+                // pre defined variables are request, response, out, session, application
+                User[] users = (User[]) application.getAttribute("users");
+                for(User u : users){
+            %>
+                <tr>
+                    <td><%= u.getUsername() %></td>
+                    <td><%= u.getPassword() %></td>
+                </tr>
 
-        <%
-            }
-        %>
+            <%
+                }
+            %>
         </table>
 
     </body>

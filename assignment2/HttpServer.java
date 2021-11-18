@@ -33,13 +33,13 @@ public class HttpServer{
 			Socket s = ss.accept();
 			System.out.println("Client connected");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			Request request = passRequest(reader);
+			Request request = parseRequest(reader);
 			s.shutdownInput();
 
 			createReply(s, request);
 		}
 	}
-	public static Request passRequest(BufferedReader request) throws IOException {
+	public static Request parseRequest(BufferedReader request) throws IOException {
 		// Request line
 		String str = request.readLine();
 		System.out.println(str);
