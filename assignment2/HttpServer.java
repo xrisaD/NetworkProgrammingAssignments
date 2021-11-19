@@ -10,7 +10,7 @@ public class HttpServer{
 
 	public static void createDocuments() {
 		// add documents manually here
-		htmlDocuments.documents.put("/index.html", new HTMLFileDocument("/index.html"));
+		htmlDocuments.documents.put("/login.html", new HTMLFileDocument("/login.html"));
 		htmlDocuments.documents.put("/guess.html", new HTMLFileDocumentWithParams("/guess.html"));
 		htmlDocuments.documents.put("/error.html", new HTMLFileDocument("/error.html"));
 		htmlDocuments.documents.put("/success.html", new HTMLFileDocumentWithParams("/success.html"));

@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.examples.*" %>
-<%@ page import="examples.User" %>
+<%@page import="examples.*" %>
+<%@ page import="models.User" %>
 <!DOCTYPE html>
 
     <head>
