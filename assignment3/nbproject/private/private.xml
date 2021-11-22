@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/src/java/examples/User.java</file>
+            <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/src/java/controllers/User.java</file>
             <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/web/users.jsp</file>
-            <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/src/java/examples/DbHandler.java</file>
+            <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/src/java/controllers/DbHandler.java</file>
             <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/src/java/examples/Controller.java</file>
+            <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/src/java/controllers/Controller.java</file>
             <file>file:/C:/Users/stene_r45rl01/OneDrive/Skrivbord/L3/web/index.html</file>
         </group>
     </open-files>

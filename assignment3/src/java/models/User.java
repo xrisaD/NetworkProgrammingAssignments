@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 public class User implements Serializable {
-    
+
+    private int id;
     private String username;
     private String password;
     private List<Result> results;
@@ -34,5 +35,13 @@ public class User implements Serializable {
 
     public void setResults(List<Result> results) {
         this.results = results;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

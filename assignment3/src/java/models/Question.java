@@ -1,24 +1,20 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Question implements Serializable {
-
+    private int id;
     private String text;
     private String[] options;
-    private int correct;
+    private String[] answer;
     private int pos;
-    private List<Selector> selectors;
+    private ArrayList<Selector> selectors;
 
     public Question() {
     }
 
-    public Question(String text, String[] options, int correct){
-        this.text = text;
-        this.options = options;
-        this.correct = correct;
-    }
 
     public String getText() {
         return text;
@@ -36,14 +32,6 @@ public class Question implements Serializable {
         this.options = options;
     }
 
-    public int getCorrect() {
-        return correct;
-    }
-
-    public void setCorrect(int correct) {
-        this.correct = correct;
-    }
-
     public int getPos() {
         return pos;
     }
@@ -56,7 +44,23 @@ public class Question implements Serializable {
         return selectors;
     }
 
-    public void setSelectors(List<Selector> selectors) {
+    public void setSelectors(ArrayList<Selector> selectors) {
         this.selectors = selectors;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String[] getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String[] answer) {
+        this.answer = answer;
     }
 }

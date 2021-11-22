@@ -1,0 +1,92 @@
+* {
+    color: white;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    padding: 10px;
+    width: 50%;
+}
+
+h1, h2 {
+    border-radius: 25px;
+}
+h1, h2, li, th, td, .submit, .question_container{
+    background-color: #40b7ad;
+}
+
+h1, h2, .question, .answers {
+    margin: auto auto 20px;
+    width:80%;
+    padding: 10px;
+}
+
+.question_container {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.center {
+    margin: auto auto 100px;
+    width: 60%;
+    padding: 20px;
+    background-color: #343434;
+    border-radius: 25px;
+}
+
+table {
+    margin: 20px;
+    text-align: center;
+}
+
+tr {
+    border: 1px solid white;
+    font-size: medium;
+}
+
+th, td, .center_table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th, td {
+    padding-inline: 30px;
+    border-radius: 25px;
+    margin: 20px;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 15%;
+    height: auto;
+}
+
+input[type=text] {
+    border: none;
+    border-radius: 25px;
+    padding: 14px 20px;
+    color: black;
+}
+
+.loginLabel, input[type=text], input[type=submit], .centerRadios {
+    width: 50%;
+    margin: 8px auto;
+    display: block;
+}
+
+input[type=submit] {
+    background-color: #40b7ad;
+    border: none;
+    border-radius: 25px;
+    padding: 14px 20px;
+}
+
+input[type=submit]:hover {
+    opacity: 0.9;
+}

@@ -1,53 +1,55 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="models.Quiz" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="models.Result" %>
-<%@ page import="java.util.List" %>
 <!DOCTYPE html>
 
 <head>
+    <link rel="stylesheet"  type="text/css" href="css/style.css">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Main Page</title>
 </head>
 <body>
-<h1></h1>
+<h1>Hi, <%= session.getAttribute("username") %>!</h1>
+<img src="images/image1.png" alt="a notebook and a pen">
 
 <article class="center">
     <h2>Quizzes</h2>
-    <ul>
+    <form method="get" action="${pageContext.request.contextPath}/QuizController">
         <%
-            Quiz[] quizzes = (Quiz[]) session.getAttribute("quizzes");
+            ArrayList<Quiz> quizzes = (ArrayList<Quiz>) application.getAttribute("quizzes");
             for(Quiz q : quizzes){
         %>
-        <li><%= q.getSubject() %></li>
+        <div class="centerRadios">
+            <input type="radio" name="quizId" id="<%= q.getId() %>" value="<%= q.getId() %>"><%= q.getSubject() %>
+        </div>
         <%
             }
         %>
-    </ul>
+        <input type="hidden" name="action" value="chooseQuiz">
+        <input type="submit" value="Choose Quiz">
+    </form>
 </article>
 
 <article class="center">
-    <h2>Scores</h2>
-
-    <table>
+    <h2>Results</h2>
+    <table class="center_table">
         <tr>
-            <th>Quiz Subject</th>
+            <th>Quiz subject</th>
             <th>Score</th>
         </tr>
         <%
-            // pre defined variables are request, response, out, session, application
-            List<Result> results = (List<Result>) session.getAttribute("results");
+            ArrayList<Result> results = (ArrayList<Result>) session.getAttribute("results");
             for(Result r : results){
         %>
-        <tr>
-            <td><%= r.getQuiz().getSubject() %></td>
-            <td><%= r.getScore() %></td>
-        </tr>
+            <tr>
+                <td><%= r.getQuiz().getSubject() %></td>
+                <td><%= r.getScore() %></td>
+            </tr>
         <%
             }
         %>
     </table>
-
 </article>
-
 </body>
 </html>

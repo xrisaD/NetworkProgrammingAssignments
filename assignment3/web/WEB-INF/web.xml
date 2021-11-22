@@ -2,12 +2,24 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>Controller</servlet-name>
-        <servlet-class>examples.Controller</servlet-class>
+        <servlet-class>controllers.LoginController</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>QuizController</servlet-name>
+        <servlet-class>controllers.QuizController</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>Controller</servlet-name>
         <url-pattern>/Controller</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>QuizController</servlet-name>
+        <url-pattern>/QuizController</url-pattern>
+    </servlet-mapping>
+
     <session-config>
         <session-timeout>
             30

@@ -1,12 +1,13 @@
 package models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz implements Serializable {
+    private int id;
     private String subject;
-    private List<Result> results;
-    private List<Selector> selectors;
+    private ArrayList<Question> questions;
 
     public Quiz() {
     }
@@ -19,19 +20,19 @@ public class Quiz implements Serializable {
         this.subject = subject;
     }
 
-    public List<Result> getResults() {
-        return results;
+    public ArrayList<Question> getQuestions() {
+        return questions;
     }
 
-    public void setResults(List<Result> results) {
-        this.results = results;
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
     }
 
-    public List<Selector> getSelectors() {
-        return selectors;
+    public int getId() {
+        return id;
     }
 
-    public void setSelectors(List<Selector> selectors) {
-        this.selectors = selectors;
+    public void setId(int id) {
+        this.id = id;
     }
 }

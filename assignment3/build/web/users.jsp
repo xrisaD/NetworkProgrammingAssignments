@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="examples.*" %>
+<%@page import="controllers.*" %>
 <%@ page import="models.User" %>
 <!DOCTYPE html>
 

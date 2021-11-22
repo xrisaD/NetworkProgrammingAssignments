@@ -2,16 +2,21 @@
     <head>
         <title>Login</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet"  type="text/css" href="css/style.css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Login</h1>
-        <form method="post" action="/network-programming/Controller">
-            Username <input type="text" name="username"><br>
-            Password <input type="text" name="password"><br>
-            <input type="hidden" name="action" value="login">
-            <input type="submit" value="Login">
-            
-        </form>
+        <img src="images/image1.png" alt="a notebook and a pen">
+        <article class="center">
+            <h1>Login</h1>
+            <form class="loginForm" method="post" action="/network-programming/Controller">
+                <label class="loginLabel" for="username">Username</label>
+                <input type="text" id="username" name="username"><br>
+                <label class="loginLabel" for="password">Password</label>
+                <input type="text" id="password" name="password"><br>
+                <input type="hidden" name="action" value="login">
+                <input type="submit" value="Login">
+            </form>
+        </article>
     </body>
 </html>
