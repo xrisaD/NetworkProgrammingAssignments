@@ -5,58 +5,85 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.UnknownHostException;
+import java.net.Socket;
+import java.util.Base64;
 
 public class SendEmail {
 
     public static void main(String[] args) throws IOException {
         SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
         HttpsURLConnection.setDefaultSSLSocketFactory(sf);
-        SSLSocket socket = null;
+
         String host = "smtp.kth.se";
         int port = 587;
+        String from = "cdik@kth.se";
+        String to = from;
 
-        try {
-            socket = (SSLSocket) sf.createSocket(host, port);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-//        String[] c = {"TLS_AES_256_GCM_SHA384"};
-//        socket.setEnabledCipherSuites(c);
-
-//        for (String i: socket.getEnabledCipherSuites()) {
-//            System.out.println(i);
-//        }
+        // socket
+        Socket socket = new Socket(host, port);
 
         PrintWriter writer = null;
         BufferedReader reader = null;
 
-        try {
-            writer = new PrintWriter(socket.getOutputStream());
-            reader = new BufferedReader( new InputStreamReader(socket.getInputStream()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writer = new PrintWriter(socket.getOutputStream());
+        reader = new BufferedReader( new InputStreamReader(socket.getInputStream()));
 
-        String str;
+        writer.println("HELO " + host);
+        writer.flush();
+        System.out.println(reader.readLine());
 
-        // send request
-        writer.println("HELO\r\n");
-        writer.println("MAIL FROM:<mail@samlogic.com>");
-        System.out.println("Request Send");
+        writer.println("STARTTLS");
+        writer.flush();
+        System.out.println(reader.readLine());
+        System.out.println(reader.readLine());
+        // SSLSocket
+        SSLSocket sslSocket = null;
 
-//        if ((str=reader.readLine())!=null) {
-//            System.out.println(str);
-//        }
+        sslSocket = (SSLSocket) sf.createSocket(socket, socket.getInetAddress().getHostAddress(),
+                    socket.getPort(),
+                    true);
 
-        // send request
-        writer.println("a001 login");
-        System.out.println("Request Send");
-        if ((str=reader.readLine())!=null) {
-            System.out.println(str);
+        writer = new PrintWriter(sslSocket.getOutputStream());
+        reader = new BufferedReader( new InputStreamReader(sslSocket.getInputStream()));
+
+        writer.println("HELO " + host);
+        writer.flush();
+        System.out.println(reader.readLine());
+
+        writer.println("AUTH LOGIN");
+        writer.flush();
+        System.out.println(reader.readLine());
+
+        writer.println(new String(Base64.getEncoder().encode(("cdik").getBytes())));
+        writer.flush();
+        System.out.println(reader.readLine());
+
+        writer.println(new String(Base64.getEncoder().encode(args[0].getBytes())));
+        writer.flush();
+        System.out.println(reader.readLine());
+
+        writer.println("MAIL From:<" + from + ">");
+        writer.flush();
+        System.out.println(reader.readLine());
+
+        writer.println("RCPT TO:<" + to + ">");
+        writer.flush();
+        System.out.println(reader.readLine());
+
+        writer.println("DATA");
+        writer.flush();
+        System.out.println(reader.readLine());
+
+        writer.println("Message");
+        writer.println(".");
+        writer.flush();
+
+        writer.println("QUIT");
+        writer.flush();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            System.out.println(line);
         }
 
     }
