@@ -19,12 +19,12 @@ public class DbHandler {
         connection = new LoadDriver().connect();
     }
 
-    public boolean validate(User u){
+    public User validate(User u){
         for(User tmp : getUsers()){
             if(Objects.equals(tmp.getUsername(), u.getUsername()) && Objects.equals(tmp.getPassword(), u.getPassword()))
-                return true;
+                return tmp;
         }
-        return false;
+        return null;
     }
 
     public ArrayList<User> getUsers () {
@@ -135,6 +135,12 @@ public class DbHandler {
     }
 
     public void save (Result r) {
-
+        Statement stmt = null;
+        try {
+            stmt = connection.createStatement();
+            stmt.executeUpdate("INSERT INTO results (user_id, quiz_id, score) VALUES ('" + r.getUser().getId() + "','" + r.getQuiz().getId() + "','" + r.getScore() + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

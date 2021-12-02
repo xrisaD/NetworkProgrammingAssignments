@@ -60,9 +60,14 @@ public class LoginController extends HttpServlet {
                 u.setUsername(username);
                 u.setPassword(password);
                 // validate user
-                isValidated =  dbh.validate(u);
+                u =  dbh.validate(u);
+                if (u == null) {
+                    isValidated = false;
+                } else {
+                    session.setAttribute("user", u);
+                    isValidated = true;
+                }
                 session.setAttribute("isValidated", isValidated);
-                session.setAttribute("user", u);
             }
 
             if (isValidated) {
