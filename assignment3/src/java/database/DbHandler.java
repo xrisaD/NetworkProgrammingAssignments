@@ -54,7 +54,7 @@ public class DbHandler {
         ArrayList<Result> results = new ArrayList<>();
         try {
             stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery("SELECT * from results");
+            ResultSet rs = stmt.executeQuery("SELECT * from results WHERE user_id="+userId);
 
             // Extract data from result set
             while (rs.next()) {
